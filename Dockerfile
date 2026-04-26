@@ -11,8 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Build the local stock database at image build time
-RUN python setup_local_db.py
+# Only build local stock database if not already present
+RUN python -c "from pathlib import Path; import sys; sys.exit(0) if Path('data/stocks.db').exists() else None" || python setup_local_db.py
 
 EXPOSE 8000
 
