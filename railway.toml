@@ -6,8 +6,3 @@ dockerfilePath = "Dockerfile"
 startCommand = "python main.py"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 60
-restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 3
-
-[[services]]
-name = "wealth-manager-agent"
