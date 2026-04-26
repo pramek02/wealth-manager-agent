@@ -3,4 +3,4 @@ __pycache__/
 *.pyo
 .env
 .DS_Store
-data/stocks.db
+# data/stocks.db  ← included in repo as fallback for Railway

@@ -141,7 +141,7 @@ def build_enriched_portfolio() -> dict:
     # ── Total equity value ───────────────────────────────────────────────────
     equity_value = sum(p["market_value"] for p in positions)
     # Client holds 10% money market → total portfolio = equity / 0.90
-    total_portfolio_value = equity_value / 0.90
+    total_portfolio_value = equity_value / 0.90 if equity_value else 1.0
     mmkt_value = total_portfolio_value * 0.10
 
     total_cost_basis = sum(p["total_cost"] for p in positions)
