@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wealth Manager AI Agent</title>
+  <link rel="stylesheet" href="/static/styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">⚡</div>
+      <div>
+        <div class="logo-title">WealthAI</div>
+        <div class="logo-sub">Portfolio Intelligence</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </a></li>
+      <li><a href="#sectors" class="nav-link" data-section="sectors">
+        <span class="nav-icon">🎯</span> Sector Analysis
+      </a></li>
+      <li><a href="#holdings" class="nav-link" data-section="holdings">
+        <span class="nav-icon">📋</span> Holdings
+      </a></li>
+      <li><a href="#analysis" class="nav-link" data-section="analysis">
+        <span class="nav-icon">🤖</span> AI Trading Plan
+      </a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button id="runAnalysisBtn" class="btn-primary sidebar-btn">
+        <span id="analysisSpinner" class="spinner hidden"></span>
+        <span id="analysisBtnText">Run AI Analysis</span>
+      </button>
+      <a id="downloadBtn" href="/api/report" class="btn-secondary sidebar-btn" target="_blank">
+        📄 Download PDF Report
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="page-header">
+      <div>
+        <h1 id="accountName">Margaret &amp; David Chen</h1>
+        <p id="headerSub">Taxable Brokerage · Texas (No State Tax) &nbsp;|&nbsp; <span id="asOfDate">—</span></p>
+      </div>
+      <div class="header-badge">
+        <div class="health-score-ring" id="healthRing">
+          <svg viewBox="0 0 36 36" class="ring-svg">
+            <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path class="ring-fill" id="ringFill" stroke-dasharray="0, 100"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          </svg>
+          <div class="ring-label">
+            <div id="healthScore" class="health-num">—</div>
+            <div class="health-sub">Health</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── SECTION: Dashboard ─────────────────────── -->
+    <section id="dashboard" class="section active">
+      <!-- Metrics Row -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-label">Total Portfolio Value</div>
+          <div class="metric-value" id="totalValue">Loading…</div>
+          <div class="metric-sub" id="totalPositions"></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Unrealized Gain</div>
+          <div class="metric-value gain" id="totalGain">—</div>
+          <div class="metric-sub" id="totalRetPct"></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Long-Term Holdings</div>
+          <div class="metric-value" id="ltCount">—</div>
+          <div class="metric-sub">Qualify for 20% LT capital gains rate</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Rebalancing Needed</div>
+          <div class="metric-value warn" id="rebalCount">—</div>
+          <div class="metric-sub">Sectors outside ±3% target band</div>
+        </div>
+      </div>
+
+      <!-- Top Holdings + Sector Drift -->
+      <div class="two-col">
+        <div class="card">
+          <h2 class="card-title">Top 5 Positions</h2>
+          <table class="data-table" id="topHoldingsTable">
+            <thead><tr>
+              <th>Symbol</th><th>Value</th><th>Gain/Loss</th><th>Analyst</th>
+            </tr></thead>
+            <tbody id="topHoldingsBody"></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Sector Drift Summary</h2>
+          <div id="driftSummaryList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: Sector Analysis ───────────────── -->
+    <section id="sectors" class="section">
+      <div class="card">
+        <h2 class="card-title">Sector Exposure — Actual vs Target</h2>
+        <div class="chart-container">
+          <canvas id="sectorChart"></canvas>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h2 class="card-title">Sector Detail</h2>
+        <table class="data-table" id="sectorTable">
+          <thead><tr>
+            <th>Sector</th><th>Actual %</th><th>Target %</th><th>Drift</th><th>$ Value</th><th>Status</th>
+          </tr></thead>
+          <tbody id="sectorTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── SECTION: Holdings ───────────────────────── -->
+    <section id="holdings" class="section">
+      <div class="card">
+        <div class="card-header-row">
+          <h2 class="card-title">All Holdings</h2>
+          <input type="text" id="holdingsSearch" class="search-input" placeholder="Search symbol or sector…"/>
+        </div>
+        <table class="data-table" id="holdingsTable">
+          <thead><tr>
+            <th>Symbol</th><th>Name</th><th>Sector</th><th>Shares</th>
+            <th>Price</th><th>Mkt Value</th><th>Cost Basis</th><th>Gain/Loss</th>
+            <th>Holding</th><th>Analyst</th><th>Target</th>
+          </tr></thead>
+          <tbody id="holdingsTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Tax Analysis -->
+      <div class="card" style="margin-top:16px">
+        <h2 class="card-title">⚠️ Tax-Loss Harvesting Opportunities</h2>
+        <p class="card-desc">Positions with unrealized losses that can offset capital gains.</p>
+        <div id="harvestingList"></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: AI Analysis ───────────────────── -->
+    <section id="analysis" class="section">
+
+      <div id="analysisPlaceholder" class="analysis-placeholder">
+        <div class="placeholder-icon">🤖</div>
+        <h3>AI Trading Plan</h3>
+        <p>Click <strong>"Run AI Analysis"</strong> in the sidebar to let Claude analyze your portfolio and generate a tax-aware trading plan.</p>
+        <p class="hint">The agent will: identify sector drift → check analyst ratings → calculate tax impact → screen replacements → generate a complete plan.</p>
+        <button class="btn-primary" onclick="runAnalysis()">Run AI Analysis Now</button>
+      </div>
+
+      <div id="analysisContent" class="hidden">
+        <!-- Executive Summary -->
+        <div class="card ai-card">
+          <div class="ai-badge">🤖 Claude AI</div>
+          <h2 class="card-title">Executive Summary</h2>
+          <p id="execSummary" class="exec-text"></p>
+          <div class="findings-list" id="keyFindings"></div>
+        </div>
+
+        <!-- Sell Recommendations -->
+        <div class="card" style="margin-top:16px">
+          <h2 class="card-title sell-title">📉 Recommended Sells</h2>
+          <table class="data-table" id="sellsTable">
+            <thead><tr>
+              <th>Symbol</th><th>Shares</th><th>Est. Proceeds</th>
+              <th>Analyst</th><th>Tax Impact</th><th>Rationale</th><th>Priority</th>
+            </tr></thead>
+            <tbody id="sellsTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Buy Recommendations -->
+        <div class="card" style="margin-top:16px">
+          <h2 class="card-title buy-title">📈 Recommended Buys</h2>
+          <table class="data-table" id="buysTable">
+            <thead><tr>
+              <th>Symbol</th><th>Shares</th><th>Est. Cost</th>
+              <th>Sector</th><th>Analyst</th><th>Rationale</th><th>Priority</th>
+            </tr></thead>
+            <tbody id="buysTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Tax Harvesting -->
+        <div class="card" style="margin-top:16px" id="harvestCard">
+          <h2 class="card-title">🌿 Tax-Loss Harvesting</h2>
+          <table class="data-table" id="harvestTable">
+            <thead><tr>
+              <th>Symbol</th><th>Action</th><th>Tax Benefit</th><th>Notes</th>
+            </tr></thead>
+            <tbody id="harvestTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Narrative -->
+        <div class="card" style="margin-top:16px">
+          <h2 class="card-title">📝 Full Narrative & Rationale</h2>
+          <div id="narrativeText" class="narrative"></div>
+        </div>
+
+        <!-- Risks -->
+        <div class="card risks-card" style="margin-top:16px">
+          <h2 class="card-title">⚠️ Risk Considerations</h2>
+          <ul id="risksList" class="risks-list"></ul>
+        </div>
+
+        <!-- Summary Row -->
+        <div class="summary-row" id="summaryRow" style="margin-top:16px"></div>
+      </div>
+
+      <div id="analysisError" class="error-box hidden"></div>
+      <div id="analysisLoading" class="loading-box hidden">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">
+          <strong>Claude is analyzing your portfolio…</strong>
+          <p id="loadingStep">Gathering portfolio data and analyst ratings…</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

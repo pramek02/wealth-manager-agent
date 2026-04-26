@@ -1,0 +1,20 @@
+{
+  "targets": {
+    "Technology": 22,
+    "Healthcare": 16,
+    "Financials": 18,
+    "Consumer Discretionary": 10,
+    "Consumer Staples": 6,
+    "Energy": 7,
+    "Industrials": 9,
+    "Communication Services": 8,
+    "Materials": 2,
+    "Utilities": 2
+  },
+  "tolerance_pct": 2.5,
+  "rebalance_threshold_pct": 3.0,
+  "tax_rate_short_term": 0.37,
+  "tax_rate_long_term": 0.20,
+  "state_tax_rate": 0.093,
+  "min_trade_size_usd": 1000
+}

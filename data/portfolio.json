@@ -1,0 +1,151 @@
+{
+  "account_name": "Horizon Growth Portfolio",
+  "account_number": "HGP-2024-001",
+  "manager": "Alexandra Chen, CFA",
+  "holdings": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "shares": 200,
+      "cost_basis_per_share": 145.20,
+      "purchase_date": "2022-03-15",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "shares": 100,
+      "cost_basis_per_share": 285.40,
+      "purchase_date": "2021-06-20",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "shares": 50,
+      "cost_basis_per_share": 245.00,
+      "purchase_date": "2022-08-10",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "shares": 120,
+      "cost_basis_per_share": 135.60,
+      "purchase_date": "2020-11-05",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms Inc.",
+      "shares": 80,
+      "cost_basis_per_share": 205.30,
+      "purchase_date": "2022-10-20",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "shares": 60,
+      "cost_basis_per_share": 165.80,
+      "purchase_date": "2021-04-12",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "UNH",
+      "name": "UnitedHealth Group",
+      "shares": 25,
+      "cost_basis_per_share": 485.00,
+      "purchase_date": "2020-07-18",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "shares": 100,
+      "cost_basis_per_share": 158.20,
+      "purchase_date": "2021-02-08",
+      "sector": "Financials"
+    },
+    {
+      "symbol": "BAC",
+      "name": "Bank of America Corp.",
+      "shares": 250,
+      "cost_basis_per_share": 36.50,
+      "purchase_date": "2020-05-14",
+      "sector": "Financials"
+    },
+    {
+      "symbol": "GS",
+      "name": "Goldman Sachs Group Inc.",
+      "shares": 30,
+      "cost_basis_per_share": 345.00,
+      "purchase_date": "2021-09-22",
+      "sector": "Financials"
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com Inc.",
+      "shares": 75,
+      "cost_basis_per_share": 185.40,
+      "purchase_date": "2019-04-30",
+      "sector": "Consumer Discretionary"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "shares": 40,
+      "cost_basis_per_share": 280.00,
+      "purchase_date": "2023-01-10",
+      "sector": "Consumer Discretionary"
+    },
+    {
+      "symbol": "XOM",
+      "name": "Exxon Mobil Corporation",
+      "shares": 100,
+      "cost_basis_per_share": 62.40,
+      "purchase_date": "2020-09-03",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "CVX",
+      "name": "Chevron Corporation",
+      "shares": 75,
+      "cost_basis_per_share": 108.50,
+      "purchase_date": "2021-03-25",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "CAT",
+      "name": "Caterpillar Inc.",
+      "shares": 40,
+      "cost_basis_per_share": 218.60,
+      "purchase_date": "2021-07-14",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "HON",
+      "name": "Honeywell International Inc.",
+      "shares": 50,
+      "cost_basis_per_share": 195.30,
+      "purchase_date": "2020-12-08",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "PG",
+      "name": "Procter & Gamble Co.",
+      "shares": 60,
+      "cost_basis_per_share": 138.40,
+      "purchase_date": "2020-06-22",
+      "sector": "Consumer Staples"
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer Inc.",
+      "shares": 150,
+      "cost_basis_per_share": 48.20,
+      "purchase_date": "2021-11-30",
+      "sector": "Healthcare"
+    }
+  ]
+}
