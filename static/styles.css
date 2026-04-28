@@ -19,6 +19,21 @@
 body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9;
        color: #1e293b; display: flex; min-height: 100vh; font-size: 14px; }
 
+/* ── Top Banner ────────────────────────────────────────────── */
+.top-banner {
+  background: var(--navy); color: rgba(255,255,255,0.85);
+  padding: 8px 24px; display: flex; justify-content: space-between;
+  align-items: center; font-size: 12px; border-bottom: 2px solid #c9a84c;
+}
+.top-banner-left { display: flex; align-items: center; gap: 8px; }
+.top-banner-right { display: flex; align-items: center; gap: 8px; }
+.top-banner-course { font-weight: 600; color: #fff; }
+.top-banner-exercise { color: #c9a84c; font-weight: 600; }
+.top-banner-divider { color: rgba(255,255,255,0.3); }
+.top-banner-client { color: #fff; font-weight: 600; }
+.top-banner-detail { color: rgba(255,255,255,0.7); }
+.top-banner-status { color: #4ade80; font-weight: 600; }
+
 /* ── Sidebar ───────────────────────────────────────────────── */
 .sidebar {
   width: var(--sidebar-w); min-height: 100vh; background: var(--navy);
