@@ -267,20 +267,38 @@ async function runAnalysis() {
   setVisible('analysisError', false);
   setVisible('analysisLoading', true);
 
-  // Animate loading steps
-  const steps = [
-    'Fetching live portfolio data and prices…',
-    'Checking analyst ratings for all holdings…',
-    'Calculating tax impact for potential trades…',
-    'Screening replacement stocks by sector…',
-    'Identifying tax-loss harvesting opportunities…',
-    'Synthesizing findings into trading plan…'
+  // Animate step-by-step progress
+  const stepTimings = [0, 8000, 16000, 24000, 34000, 44000, 54000];
+  const stepLabels = [
+    'Agent working (step 1)... Loading portfolio',
+    'Agent working (step 2)... Fetching prices & ratings',
+    'Agent working (step 3)... Analyzing sector drift',
+    'Agent working (step 4)... Computing tax impact',
+    'Agent working (step 5)... Screening buy candidates',
+    'Agent working (step 6)... Finding harvest opportunities',
+    'Agent working (step 7)... Writing trading plan',
   ];
-  let stepIdx = 0;
   const stepEl = document.getElementById('loadingStep');
-  const stepTimer = setInterval(() => {
-    stepEl.textContent = steps[Math.min(++stepIdx, steps.length - 1)];
-  }, 8000);
+  const stepTimers = stepTimings.map((delay, i) =>
+    setTimeout(() => {
+      // Mark previous step done
+      if (i > 0) {
+        const prev = document.getElementById(`step${i}`);
+        if (prev) {
+          prev.querySelector('.step-icon').textContent = '✅';
+          prev.classList.add('step-done');
+        }
+      }
+      // Mark current step active
+      const cur = document.getElementById(`step${i + 1}`);
+      if (cur) {
+        cur.querySelector('.step-icon').textContent = '🔄';
+        cur.classList.add('step-active');
+      }
+      stepEl.textContent = stepLabels[i];
+    }, delay)
+  );
+  const stepTimer = { cancel: () => stepTimers.forEach(t => clearTimeout(t)) };
 
   // Spinner in button
   setVisible('analysisSpinner', true);
@@ -289,7 +307,7 @@ async function runAnalysis() {
 
   try {
     const res = await fetch('/api/analysis');
-    clearInterval(stepTimer);
+    stepTimer.cancel();
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.detail || 'Analysis failed');
@@ -303,7 +321,7 @@ async function runAnalysis() {
     if (plan.portfolio_health_score) updateHealthRing(plan.portfolio_health_score);
 
   } catch (err) {
-    clearInterval(stepTimer);
+    stepTimer.cancel();
     setVisible('analysisLoading', false);
     const errEl = document.getElementById('analysisError');
     errEl.textContent = `Error: ${err.message}`;

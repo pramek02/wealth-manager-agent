@@ -243,10 +243,45 @@
 
       <div id="analysisError" class="error-box hidden"></div>
       <div id="analysisLoading" class="loading-box hidden">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">
-          <strong>Claude is analyzing your portfolio…</strong>
-          <p id="loadingStep">Gathering portfolio data and analyst ratings…</p>
+        <div class="agent-progress-card">
+          <div class="agent-progress-header">
+            <div class="agent-spinner"></div>
+            <div>
+              <div class="agent-title">Claude Sonnet 4.5 · Agentic Loop Running</div>
+              <div class="agent-subtitle">Analyzing Margaret &amp; David Chen's portfolio with 5 specialized tools</div>
+            </div>
+          </div>
+          <div class="agent-steps">
+            <div class="agent-step" id="step1">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 1: Loading portfolio — 49 positions, 167 tax lots from Excel…</span>
+            </div>
+            <div class="agent-step" id="step2">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 2: Fetching live prices &amp; analyst ratings from MotherDuck…</span>
+            </div>
+            <div class="agent-step" id="step3">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 3: Identifying overweight sectors &amp; Sell-rated holdings…</span>
+            </div>
+            <div class="agent-step" id="step4">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 4: Calculating tax impact using Specific ID (highest cost basis first)…</span>
+            </div>
+            <div class="agent-step" id="step5">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 5: Scanning 4,316 stocks for Strong Buy candidates in underweight sectors…</span>
+            </div>
+            <div class="agent-step" id="step6">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 6: Finding tax-loss harvesting opportunities (30-day wash-sale rule)…</span>
+            </div>
+            <div class="agent-step" id="step7">
+              <span class="step-icon">⏳</span>
+              <span class="step-text">Step 7: Synthesizing tax-optimized trading plan…</span>
+            </div>
+          </div>
+          <div class="agent-status" id="loadingStep">Agent working (step 1)...</div>
         </div>
       </div>
     </section>

@@ -213,18 +213,43 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9;
 .summary-box .s-value { font-size: 18px; font-weight: 700; }
 
 /* ── Loading / Error ────────────────────────────────────────── */
-.loading-box {
-  display: flex; align-items: center; gap: 20px;
-  padding: 30px; background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow);
+.loading-box { padding: 0; background: transparent; }
+
+/* Agent progress card */
+.agent-progress-card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 24px; border-top: 3px solid var(--blue);
 }
-.loading-spinner {
-  width: 40px; height: 40px; min-width: 40px;
+.agent-progress-header {
+  display: flex; align-items: center; gap: 16px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--mgray); margin-bottom: 20px;
+}
+.agent-spinner {
+  width: 36px; height: 36px; min-width: 36px;
   border: 3px solid var(--mgray); border-top-color: var(--blue);
   border-radius: 50%; animation: spin .8s linear infinite;
 }
-.loading-text strong { display: block; font-size: 14px; color: var(--navy); }
-.loading-text p      { font-size: 12px; color: var(--gray); margin-top: 4px; }
+.agent-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+.agent-subtitle { font-size: 12px; color: var(--gray); margin-top: 3px; }
+.agent-steps { display: flex; flex-direction: column; gap: 10px; }
+.agent-step {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 8px;
+  background: var(--lgray); font-size: 13px; color: var(--gray);
+  transition: all 0.3s ease;
+}
+.agent-step.step-active {
+  background: #eff6ff; color: var(--navy); font-weight: 500;
+  border-left: 3px solid var(--blue);
+}
+.agent-step.step-done {
+  background: #f0fdf4; color: var(--green);
+}
+.step-icon { font-size: 14px; min-width: 20px; }
+.agent-status {
+  margin-top: 16px; font-size: 12px; color: var(--gray);
+  font-style: italic; text-align: center;
+}
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .error-box {
