@@ -39,13 +39,13 @@ def build_styles():
     styles = getSampleStyleSheet()
     custom = {
         "title": ParagraphStyle("title", fontSize=22, textColor=NAVY,
-                                fontName="Helvetica-Bold", spaceAfter=4),
+                                fontName="Helvetica-Bold", spaceAfter=10),
         "subtitle": ParagraphStyle("subtitle", fontSize=11, textColor=GRAY,
-                                   fontName="Helvetica", spaceAfter=2),
+                                   fontName="Helvetica", spaceAfter=14),
         "h1": ParagraphStyle("h1", fontSize=14, textColor=NAVY,
-                             fontName="Helvetica-Bold", spaceBefore=14, spaceAfter=6),
+                             fontName="Helvetica-Bold", spaceBefore=18, spaceAfter=8),
         "h2": ParagraphStyle("h2", fontSize=11, textColor=BLUE,
-                             fontName="Helvetica-Bold", spaceBefore=10, spaceAfter=4),
+                             fontName="Helvetica-Bold", spaceBefore=12, spaceAfter=6),
         "body": ParagraphStyle("body", fontSize=9, textColor=colors.black,
                                fontName="Helvetica", leading=13, spaceAfter=4),
         "body_justify": ParagraphStyle("body_justify", fontSize=9, textColor=colors.black,
